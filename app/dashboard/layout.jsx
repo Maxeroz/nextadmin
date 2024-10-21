@@ -2,6 +2,7 @@ import Navbar from "../ui/dashboard/navbar/Navbar";
 import Sidebar from "../ui/dashboard/sidebar/sidebar";
 
 import styles from "../ui/dashboard/dashboard.module.css";
+import Footer from "./footer/Footer";
 
 function Layout({ children }) {
   return (
@@ -12,6 +13,7 @@ function Layout({ children }) {
       <div className={styles.content}>
         <Navbar />
         {children}
+        <Footer />
       </div>
     </div>
   );
