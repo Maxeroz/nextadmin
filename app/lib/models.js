@@ -1,8 +1,15 @@
-const { default: mongoose } = require("mongoose");
+// models.js
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    username: { type: String, required: true, unique: true, min: 3, max: 20 },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      minLength: 3,
+      maxLength: 20,
+    },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     img: { type: String },
@@ -27,5 +34,9 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const User = mongoose.model("User", userSchema);
-export const Product = mongoose.model("Product", productSchema);
+export const User = mongoose.models.User || mongoose.model("User", userSchema);
+export const Product =
+  mongoose.models.Product || mongoose.model("Product", productSchema);
+
+console.log("User model created:", User !== undefined);
+console.log("Product model created:", Product !== undefined);
