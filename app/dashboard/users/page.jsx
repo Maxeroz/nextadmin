@@ -8,10 +8,9 @@ import Pagination from "@/app/ui/dashboard/pagination/Pagination";
 import { fetchUsers } from "@/app/lib/data";
 import { use } from "react";
 
-async function Users() {
-  const users = await fetchUsers();
-
-  console.log(users);
+async function Users({ searchParams }) {
+  const query = searchParams?.q || "";
+  const users = await fetchUsers(query);
 
   return (
     <div className={styles.container}>
