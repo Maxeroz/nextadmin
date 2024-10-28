@@ -6,11 +6,11 @@ import Link from "next/link";
 import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/Pagination";
 import { fetchUsers } from "@/app/lib/data";
-import { use } from "react";
 
 async function Users({ searchParams }) {
   const query = searchParams?.q || "";
-  const users = await fetchUsers(query);
+  const page = searchParams?.page || 1;
+  const { count, users } = await fetchUsers(query, page);
 
   return (
     <div className={styles.container}>
@@ -70,7 +70,7 @@ async function Users({ searchParams }) {
           })}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination count={count} />
     </div>
   );
 }
