@@ -1,13 +1,15 @@
 import Image from "next/image";
 import styles from "../../../ui/dashboard/users/singleUser/singleUser.module.css";
 import { fetchUser } from "@/app/lib/data";
+import { updateUser } from "@/app/lib/actions";
 
 async function SingleUserPage({ params }) {
   const { id } = params;
 
   const user = await fetchUser(id);
 
-  const { username, email, password, img, isAdmin, isActive, phone } = user;
+  const { username, email, password, img, isAdmin, isActive, phone, address } =
+    user;
 
   return (
     <div className={styles.container}>
@@ -19,7 +21,9 @@ async function SingleUserPage({ params }) {
       </div>
 
       <div className={styles.formContainer}>
-        <form action="" className={styles.form}>
+        <form action={updateUser} className={styles.form}>
+          <input type="hidden" name="id" value={id} />
+
           <label>Username</label>
           <input type="text" name="username" placeholder={username} />
           <label>Email</label>
@@ -29,7 +33,7 @@ async function SingleUserPage({ params }) {
           <label>Phone</label>
           <input type="text" name="phone" placeholder={phone || ""} />
           <label>Address</label>
-          <textarea type="text" name="address" placeholder="New Your" />
+          <textarea type="text" name="address" placeholder={address} />
           <label>Is Admin?</label>
 
           <select name="isAdmin" id="isAdmin" defaultValue={isAdmin}>
