@@ -1,37 +1,44 @@
 import Image from "next/image";
 import styles from "../../../ui/dashboard/users/singleUser/singleUser.module.css";
+import { fetchUser } from "@/app/lib/data";
 
-function SingleUserPage() {
+async function SingleUserPage({ params }) {
+  const { id } = params;
+
+  const user = await fetchUser(id);
+
+  const { username, email, password, img, isAdmin, isActive, phone } = user;
+
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <div className={styles.imgContainer}>
-          <Image src="/noavatar.png" alt="" fill />
+          <Image src={img || "/noavatar.png"} alt="" fill />
         </div>
-        John Doe
+        {username}
       </div>
 
       <div className={styles.formContainer}>
         <form action="" className={styles.form}>
           <label>Username</label>
-          <input type="text" name="username" placeholder="John Doe" />
+          <input type="text" name="username" placeholder={username} />
           <label>Email</label>
-          <input type="email" name="email" placeholder="johndoe@gmail.com" />
+          <input type="email" name="email" placeholder={email} />
           <label>Password</label>
           <input type="password" name="password" />
           <label>Phone</label>
-          <input type="text" name="phone" placeholder="+1234567" />
+          <input type="text" name="phone" placeholder={phone || ""} />
           <label>Address</label>
           <textarea type="text" name="address" placeholder="New Your" />
           <label>Is Admin?</label>
 
-          <select name="isAdmin" id="isAdmin">
+          <select name="isAdmin" id="isAdmin" defaultValue={isAdmin}>
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </select>
           <label>Is Active?</label>
 
-          <select name="isActive" id="isActive">
+          <select name="isActive" id="isActive" defaultValue={isActive}>
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </select>

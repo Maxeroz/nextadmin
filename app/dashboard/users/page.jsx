@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/Pagination";
 import { fetchUsers } from "@/app/lib/data";
+import { deleteUser } from "@/app/lib/actions";
 
 async function Users({ searchParams }) {
   const query = searchParams?.q || "";
@@ -60,9 +61,12 @@ async function Users({ searchParams }) {
                         View
                       </button>
                     </Link>
-                    <button className={`${styles.button} ${styles.delete}`}>
-                      Delete
-                    </button>
+                    <form action={deleteUser}>
+                      <input type="hidden" name="id" value={user.id} />
+                      <button className={`${styles.button} ${styles.delete}`}>
+                        Delete
+                      </button>
+                    </form>
                   </div>
                 </td>
               </tr>
